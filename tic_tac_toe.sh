@@ -16,3 +16,15 @@ function board() {
 	echo " ${pos[6]} | ${pos[7]} | ${pos[8]}"
 }
 board
+
+#Use case 2
+function toss() {
+r=$((RANDOM % 2))
+if [ $r -eq 1 ]
+then
+	echo "Player win the toss"
+else
+	echo "Computer win the toss"
+fi
+}
+toss
