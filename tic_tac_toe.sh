@@ -3,9 +3,9 @@
 
 #Use case 1
 declare -a pos
-for (( i=0 ; i<9 ; i++ ))
+for (( element=0 ; element<9 ; element++ ))
 do
-	pos[$i]=$(($i + 1))
+	pos[$element]=$(($element + 1))
 done
 
 function board() {
@@ -18,13 +18,34 @@ function board() {
 board
 
 #Use case 2
+#Use case 3
 function toss() {
-r=$((RANDOM % 2))
-if [ $r -eq 1 ]
+random=$((RANDOM % 2))
+if [ $random -eq 1 ]
 then
 	echo "Player win the toss"
+	read -p "Enter letter X or O:" choice
+	if [[ "$choice" == "X" ]]
+	then
+		player=$choice
+		computer="O"
+	else
+		player=$choice
+		computer="X"
+	fi
 else
 	echo "Computer win the toss"
+	computer_ch=$((RANDOM % 2))
+        if [ $computer_ch -eq 1 ]
+	then
+		computer="X"
+		player="O" 
+	else
+		computer="O"
+		player="X"
+	fi
 fi
 }
 toss
+echo $player
+echo $computer
