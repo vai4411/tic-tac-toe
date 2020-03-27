@@ -267,7 +267,11 @@ do
 				elif [ ${arr[9]} -eq 0 ]
 					then
 						echo "Cormer 9 avaiable"
-				fi
+#Checking center available or not
+					elif [ ${arr[5]} -eq 0 ]
+						then
+							echo "Center 5 avaiable"
+						fi
 		fi
 	if [ $count -eq 8 ]
 	then
