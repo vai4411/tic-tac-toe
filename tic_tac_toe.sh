@@ -29,7 +29,7 @@ if [ $random -eq 1 ]
 then
 	echo "Player win the toss"
 	read -p "Enter letter X or O:" choice
-	if [[ "$choice" == "X" ]]
+	if [[ "$choice" == "X" ]] 
 	then
 		player=$choice
 		computer="O"
@@ -40,7 +40,8 @@ then
 	read -p "Enter the choice:" position
 	pos[$position]=$player
         board
-	echo "***********"
+	echo "           "
+	echo "           "
         arr[$position]=1
 	turn_flag=1
 	val=$player
@@ -58,7 +59,8 @@ else
 	computer_pos=$((RANDOM % 9 + 1))
 	pos[$computer_pos]=$computer
         board
-	echo "***********"
+	echo "           "
+	echo "           "
         arr[$computer_pos]=1
 	turn_flag=0
 	val=$computer
@@ -79,10 +81,70 @@ function win() {
 		if [[ "$val" == "$player" ]]
 		then
 			echo "Player wins..."
+			exit
 		else
 			echo "Computer wins..."
+			exit
 		fi
 	fi
-	exit
 }
-win
+
+count=0
+while [ $count -lt 9 ]
+do
+	if [ $turn_flag -eq 0 ]
+	then
+		turn_flag=1
+		read -p "Enter the choice:" position
+		if [ ${arr[$position]} -eq 0 ]
+		then
+			pos[$position]=$player
+			board
+			val=$player
+			win
+			echo "           "
+			echo "           "
+                	arr[$position]=1
+		else
+			while [ ${arr[$position]} -ne 0 ]
+			do
+				read -p "Enter the choice:" position
+				pos[$position]=$player
+				board
+				val=$player
+				win
+				echo "           "
+				echo "           "
+				arr[$position]=1
+				break
+			done
+		fi
+	else
+		turn_flag=0
+		computer_pos=$((RANDOM % 9 + 1))
+		if [ ${arr[$computer_pos]} -eq 0 ]
+        	then
+			pos[$computer_pos]=$computer
+			board
+			val=$computer
+			win
+			echo "           "
+			echo "           "
+			arr[$computer_pos]=1
+		else
+			while [ ${arr[$computer_pos]} -ne 0 ]
+                	do
+				computer_pos=$((RANDOM % 9 + 1))
+				pos[$computer_pos]=$computer
+                		board
+				val=$computer
+				win
+	        		echo "           "
+				echo "           "
+				arr[$computer_pos]=1
+				break
+			done
+		fi
+	fi
+	count=$(($count + 1))
+done
