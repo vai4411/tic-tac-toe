@@ -59,6 +59,7 @@ else
 		player="X"
 	fi
 	computer_pos=$(((RANDOM % 9) + 1))
+	echo "computer choose $computer_pos"
 	pos[$computer_pos]=$computer
         board
 	echo "           "
@@ -68,7 +69,7 @@ else
 	val=$computer
 fi
 }
-toss
+#toss
 
 #Creating winning hints for the player
 function win_move() {
@@ -188,6 +189,7 @@ function win() {
 }
 
 #Play function
+toss
 count=0
 while [ $count -lt 9 ]
 do
@@ -226,6 +228,7 @@ do
 		computer_pos=$(((RANDOM % 9) + 1))
 		if [ ${arr[$computer_pos]} -eq 0 ]
         	then
+			echo "computer choose $computer_pos"
 			pos[$computer_pos]=$computer
 			val=$computer
 			win_move
@@ -240,6 +243,7 @@ do
                 	do
 				computer_pos=$(((RANDOM % 9) + 1))
 			done
+				echo "computer choose $computer_pos"
 				pos[$computer_pos]=$computer
 				val=$computer
 				win_move
@@ -251,7 +255,6 @@ do
 				arr[$computer_pos]=1
 		fi
 	fi
-	count=$(($count + 1))
 #Available corners
 	if [ $count -gt 5 ]
 	then
@@ -286,9 +289,10 @@ do
 											echo "Side 8 available"
 										fi
 		fi
+	count=$(($count + 1))
 	if [ $count -eq 8 ]
 	then
-		echo "Draw..."
+		echo "Draw... No more blocks left"
 		exit
 	fi
 done
