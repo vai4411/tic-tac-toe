@@ -72,46 +72,46 @@ toss
 
 #Creating winning hints for the player
 function win_move() {
-        if ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]]) ||
-	   ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]]) ||
-	   ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]])
+        if ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [ ${arr[1]} -eq 0 ]) ||
+	   ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [ ${arr[1]} -eq 0 ]) ||
+	   ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [ ${arr[1]} -eq 0 ])
         then
              echo "choose 1 for win..."
-        elif ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[2]}" != "$computer" ]]) ||
-	     ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[2]}" != "$computer" ]])
+        elif ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [ ${arr[2]} -eq 0 ]) ||
+	     ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [ ${arr[2]} -eq 0 ])
 		then
 			echo "choose 2 for win..."
-		elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[2]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]]) ||
-	             ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]]) ||
-        	     ([[ "${pos[6]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]])
+		elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[2]}" == "$player" ]] && [ ${arr[3]} -eq 0 ]) ||
+	             ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [ ${arr[3]} -eq 0 ]) ||
+        	     ([[ "${pos[6]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [ ${arr[3]} -eq 0 ])
 			then
 				echo "choose 3 for win..."
-			elif ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[4]}" != "$computer" ]]) ||
-			     ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[4]}" != "$computer" ]])
+			elif ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [ ${arr[4]} -eq 0 ]) ||
+			     ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [ ${arr[4]} -eq 0 ])
         			then
 					echo "choose 4 for win..."
-				elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
-                     		     ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
-                     		     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
-				     ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]])
+				elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [ ${arr[5]} -eq 0 ]) ||
+                     		     ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [ ${arr[5]} -eq 0 ]) ||
+                     		     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [ ${arr[5]} -eq 0 ]) ||
+				     ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [ ${arr[5]} -eq 0 ])
 					then
 						echo "choose 5 for win..."
-					elif ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[6]}" != "$computer" ]]) ||
-					     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[6]}" != "$computer" ]])
+					elif ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [ ${arr[6]} -eq 0 ]) ||
+					     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [ ${arr[6]} -eq 0 ])
 						then
 							echo "choose 6 for win..."
-						elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[4]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]]) ||
-                   				     ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]]) ||
-                  				     ([[ "${pos[8]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]])
+						elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[4]}" == "$player" ]] && [ ${arr[7]} -eq 0 ]) ||
+                   				     ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [ ${arr[7]} -eq 0 ]) ||
+                  				     ([[ "${pos[8]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [ ${arr[7]} -eq 0 ])
 							then
 								echo "choose 7 for win..."
-							elif ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[8]}" != "$computer" ]]) ||
-							     ([[ "${pos[7]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[8]}" != "$computer" ]])
+							elif ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [ ${arr[8]} -eq 0 ]) ||
+							     ([[ "${pos[7]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [ ${arr[8]} -eq 0 ])
 								then
 									echo "choose 8 for win..."
-								elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]]) ||
-                                                    		     ([[ "${pos[7]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]]) ||
-                                                 		     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]])
+								elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [ ${arr[9]} -eq 0 ]) ||
+                                                    		     ([[ "${pos[7]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [ ${arr[9]} -eq 0 ]) ||
+                                                 		     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [ ${arr[9]} -eq 0 ])
 									then
 										echo "choose 9 for win..."
 	fi
@@ -119,46 +119,46 @@ function win_move() {
 
 #Creating blocking computer winning hints for the player
 function win_block() {
-        if ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]]) ||
-	   ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]]) ||
-	   ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]])
+        if ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [ ${arr[1]} -eq 0 ]) ||
+	   ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [ ${arr[1]} -eq 0 ]) ||
+	   ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [ ${arr[1]} -eq 0 ])
         then
              echo "choose 1 for block..."
-        elif ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[2]}" != "$player" ]]) ||
-	     ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[2]}" != "$player" ]])
+        elif ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [ ${arr[2]} -eq 0 ]) ||
+	     ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [ ${arr[2]} -eq 0 ])
 		then
 			echo "choose 2 for block..."
-		elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[2]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]]) ||
-	             ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]]) ||
-        	     ([[ "${pos[6]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]])
+		elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[2]}" == "$computer" ]] && [ ${arr[3]} -eq 0 ]) ||
+	             ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [ ${arr[3]} -eq 0 ]) ||
+        	     ([[ "${pos[6]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [ ${arr[3]} -eq 0 ])
 			then
 				echo "choose 3 for block..."
-			elif ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[4]}" != "$player" ]]) ||
-			     ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[4]}" != "$player" ]])
+			elif ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [ ${arr[4]} -eq 0 ]) ||
+			     ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [ ${arr[4]} -eq 0 ])
         			then
 					echo "choose 4 for block..."
-				elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
-                     		     ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
-                     		     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
-				     ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]])
+				elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [ ${arr[5]} -eq 0 ]) ||
+                     		     ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [ ${arr[5]} -eq 0 ]) ||
+                     		     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [ ${arr[5]} -eq 0 ]) ||
+				     ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [ ${arr[5]} -eq 0 ])
 					then
 						echo "choose 5 for block..."
-					elif ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[6]}" != "$player" ]]) ||
-					     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[6]}" != "$player" ]])
+					elif ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [ ${arr[6]} -eq 0 ]) ||
+					     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [ ${arr[6]} -eq 0 ])
 						then
 							echo "choose 6 for block..."
-						elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[4]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]]) ||
-                   				     ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]]) ||
-                  				     ([[ "${pos[8]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]])
+						elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[4]}" == "$computer" ]] && [ ${arr[7]} -eq 0 ]) ||
+                   				     ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [ ${arr[7]} -eq 0 ]) ||
+                  				     ([[ "${pos[8]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [ ${arr[7]} -eq 0 ])
 							then
 								echo "choose 7 for block..."
-							elif ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[8]}" != "$player" ]]) ||
-							     ([[ "${pos[7]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[8]}" != "$player" ]])
+							elif ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [ ${arr[8]} -eq 0 ]) ||
+							     ([[ "${pos[7]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [ ${arr[8]} -eq 0 ])
 								then
 									echo "choose 8 for block..."
-								elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]]) ||
-                                                    		     ([[ "${pos[7]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]]) ||
-                                                 		     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]])
+								elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [ ${arr[9]} -eq 0 ]) ||
+                                                   		     ([[ "${pos[7]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [ ${arr[9]} -eq 0 ]) ||
+                                                 		     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [ ${arr[9]} -eq 0 ])
 									then
 										echo "choose 9 for block..."
 	fi
@@ -198,10 +198,10 @@ do
 		if [ ${arr[$position]} -eq 0 ]
 		then
 			pos[$position]=$player
-			board
 			val=$player
-			win_block
 			win_move
+			win_block
+			board
 			win
 			echo "           "
 			echo "           "
@@ -211,10 +211,10 @@ do
 			do
 				read -p "Enter the choice:" position
 				pos[$position]=$player
-				board
 				val=$player
-				win_block
 				win_move
+				win_block
+				board
 				win
 				echo "           "
 				echo "           "
@@ -227,10 +227,10 @@ do
 		if [ ${arr[$computer_pos]} -eq 0 ]
         	then
 			pos[$computer_pos]=$computer
-			board
 			val=$computer
-			win_block
 			win_move
+			win_block
+			board
 			win
 			echo "           "
 			echo "           "
@@ -241,10 +241,10 @@ do
 				computer_pos=$(((RANDOM % 9) + 1))
 			done
 				pos[$computer_pos]=$computer
-                		board
 				val=$computer
-				win_block
 				win_move
+				win_block
+				board
 				win
 		       		echo "           "
 				echo "           "
@@ -266,12 +266,25 @@ do
 					echo "Corner 7 avaiable"
 				elif [ ${arr[9]} -eq 0 ]
 					then
-						echo "Cormer 9 avaiable"
+						echo "Corner 9 avaiable"
 #Checking center available or not
 					elif [ ${arr[5]} -eq 0 ]
 						then
 							echo "Center 5 avaiable"
-						fi
+#Checking side available or not
+						elif [ ${arr[2]} -eq 0 ]
+							then
+								echo "Side 2 available"
+							elif [ ${arr[4]} -eq 0 ]
+								then
+									echo "Side 4 available"
+								elif [ ${arr[6]} -eq 0 ]
+									then
+										echo "Side 6 available"
+									elif [ ${arr[8]} -eq 0 ]
+										then
+											echo "Side 8 available"
+										fi
 		fi
 	if [ $count -eq 8 ]
 	then
