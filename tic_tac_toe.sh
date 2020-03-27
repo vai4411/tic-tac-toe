@@ -2,6 +2,7 @@
 #!/bin/bash -x
 
 #checking flag for available positions
+turn_flag=0
 declare -a arr
 for (( flag=1 ; flag<=9 ; flag++ ))
 do
@@ -22,8 +23,6 @@ function board() {
 	echo " ${pos[7]} | ${pos[8]} | ${pos[9]}"
 }
 
-random=0
-turn_flag=0
 function toss() {
 random=$((RANDOM % 2))
 if [ $random -eq 1 ]
@@ -44,6 +43,7 @@ then
 	echo "***********"
         arr[$position]=1
 	turn_flag=1
+	val=$player
 else
 	echo "Computer win the toss"
 	computer_ch=$((RANDOM % 2))
@@ -61,7 +61,28 @@ else
 	echo "***********"
         arr[$computer_pos]=1
 	turn_flag=0
+	val=$computer
 fi
 }
 toss
 
+function win() {
+	if ([[ "${pos[1]}" == "$val" ]] && [[ "${pos[2]}" == "$val" ]] && [[ "${pos[3]}" == "$val" ]]) ||
+	   ([[ "${pos[4]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[6]}" == "$val" ]]) ||
+	   ([[ "${pos[7]}" == "$val" ]] && [[ "${pos[8]}" == "$val" ]] && [[ "${pos[9]}" == "$val" ]]) ||
+	   ([[ "${pos[1]}" == "$val" ]] && [[ "${pos[4]}" == "$val" ]] && [[ "${pos[7]}" == "$val" ]]) ||
+	   ([[ "${pos[2]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[8]}" == "$val" ]]) ||
+	   ([[ "${pos[3]}" == "$val" ]] && [[ "${pos[6]}" == "$val" ]] && [[ "${pos[9]}" == "$val" ]]) ||
+	   ([[ "${pos[1]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[9]}" == "$val" ]]) ||
+	   ([[ "${pos[3]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[7]}" == "$val" ]]) 
+	then
+		if [[ "$val" == "$player" ]]
+		then
+			echo "Player wins..."
+		else
+			echo "Computer wins..."
+		fi
+	fi
+	exit
+}
+win
