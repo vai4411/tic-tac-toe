@@ -252,8 +252,26 @@ do
 		fi
 	fi
 	count=$(($count + 1))
+#Available corners
+	if [ $count -gt 5 ]
+	then
+		if [ ${arr[1]} -eq 0 ]
+		then
+			echo "Corner 1 avaiable"
+		elif [ ${arr[3]} -eq 0 ]
+			then
+				echo "Corner 3 avaiable"
+			elif [ ${arr[7]} -eq 0 ]
+				then
+					echo "Corner 7 avaiable"
+				elif [ ${arr[9]} -eq 0 ]
+					then
+						echo "Cormer 9 avaiable"
+				fi
+		fi
 	if [ $count -eq 8 ]
 	then
+		echo "Draw..."
 		exit
 	fi
 done
