@@ -70,7 +70,7 @@ fi
 }
 toss
 
-#Creating hints for the player
+#Creating winning hints for the player
 function win_move() {
         if ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]]) ||
 	   ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]]) ||
@@ -117,6 +117,53 @@ function win_move() {
 	fi
 }
 
+#Creating blocking computer winning hints for the player
+function win_block() {
+        if ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]]) ||
+	   ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]]) ||
+	   ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]])
+        then
+             echo "choose 1 for block..."
+        elif ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[2]}" != "$player" ]]) ||
+	     ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[2]}" != "$player" ]])
+		then
+			echo "choose 2 for block..."
+		elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[2]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]]) ||
+	             ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]]) ||
+        	     ([[ "${pos[6]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]])
+			then
+				echo "choose 3 for block..."
+			elif ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[4]}" != "$player" ]]) ||
+			     ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[4]}" != "$player" ]])
+        			then
+					echo "choose 4 for block..."
+				elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
+                     		     ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
+                     		     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
+				     ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]])
+					then
+						echo "choose 5 for block..."
+					elif ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[6]}" != "$player" ]]) ||
+					     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[6]}" != "$player" ]])
+						then
+							echo "choose 6 for block..."
+						elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[4]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]]) ||
+                   				     ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]]) ||
+                  				     ([[ "${pos[8]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]])
+							then
+								echo "choose 7 for block..."
+							elif ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[8]}" != "$player" ]]) ||
+							     ([[ "${pos[7]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[8]}" != "$player" ]])
+								then
+									echo "choose 8 for block..."
+								elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]]) ||
+                                                    		     ([[ "${pos[7]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]]) ||
+                                                 		     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]])
+									then
+										echo "choose 9 for block..."
+	fi
+}
+
 
 #Wining Conditions
 function win() {
@@ -153,6 +200,7 @@ do
 			pos[$position]=$player
 			board
 			val=$player
+			win_block
 			win_move
 			win
 			echo "           "
@@ -165,6 +213,7 @@ do
 				pos[$position]=$player
 				board
 				val=$player
+				win_block
 				win_move
 				win
 				echo "           "
@@ -180,6 +229,7 @@ do
 			pos[$computer_pos]=$computer
 			board
 			val=$computer
+			win_block
 			win_move
 			win
 			echo "           "
@@ -193,6 +243,7 @@ do
 				pos[$computer_pos]=$computer
                 		board
 				val=$computer
+				win_block
 				win_move
 				win
 		       		echo "           "
