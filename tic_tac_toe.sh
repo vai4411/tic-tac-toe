@@ -15,6 +15,7 @@ do
 	pos[$element]=$element
 done
 
+#Print board
 function board() {
 	echo " ${pos[1]} | ${pos[2]} | ${pos[3]}"
 	echo "-----------"
@@ -23,6 +24,7 @@ function board() {
 	echo " ${pos[7]} | ${pos[8]} | ${pos[9]}"
 }
 
+#Toss and choose letters
 function toss() {
 random=$((RANDOM % 2))
 if [ $random -eq 1 ]
@@ -56,7 +58,7 @@ else
 		computer="O"
 		player="X"
 	fi
-	computer_pos=$((RANDOM % 9 + 1))
+	computer_pos=$(((RANDOM % 9) + 1))
 	pos[$computer_pos]=$computer
         board
 	echo "           "
@@ -68,6 +70,55 @@ fi
 }
 toss
 
+#Creating hints for the player
+function win_move() {
+        if ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]]) ||
+	   ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]]) ||
+	   ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]])
+        then
+             echo "choose 1 for win..."
+        elif ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[2]}" != "$computer" ]]) ||
+	     ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[2]}" != "$computer" ]])
+		then
+			echo "choose 2 for win..."
+		elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[2]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]]) ||
+	             ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]]) ||
+        	     ([[ "${pos[6]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]])
+			then
+				echo "choose 3 for win..."
+			elif ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[4]}" != "$computer" ]]) ||
+			     ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[4]}" != "$computer" ]])
+        			then
+					echo "choose 4 for win..."
+				elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
+                     		     ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
+                     		     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
+				     ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]])
+					then
+						echo "choose 5 for win..."
+					elif ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[6]}" != "$computer" ]]) ||
+					     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[6]}" != "$computer" ]])
+						then
+							echo "choose 6 for win..."
+						elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[4]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]]) ||
+                   				     ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]]) ||
+                  				     ([[ "${pos[8]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]])
+							then
+								echo "choose 7 for win..."
+							elif ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[8]}" != "$computer" ]]) ||
+							     ([[ "${pos[7]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[8]}" != "$computer" ]])
+								then
+									echo "choose 8 for win..."
+								elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]]) ||
+                                                    		     ([[ "${pos[7]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]]) ||
+                                                 		     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]])
+									then
+										echo "choose 9 for win..."
+	fi
+}
+
+
+#Wining Conditions
 function win() {
 	if ([[ "${pos[1]}" == "$val" ]] && [[ "${pos[2]}" == "$val" ]] && [[ "${pos[3]}" == "$val" ]]) ||
 	   ([[ "${pos[4]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[6]}" == "$val" ]]) ||
@@ -89,6 +140,7 @@ function win() {
 	fi
 }
 
+#Play function
 count=0
 while [ $count -lt 9 ]
 do
@@ -101,6 +153,7 @@ do
 			pos[$position]=$player
 			board
 			val=$player
+			win_move
 			win
 			echo "           "
 			echo "           "
@@ -112,39 +165,45 @@ do
 				pos[$position]=$player
 				board
 				val=$player
+				win_move
 				win
 				echo "           "
 				echo "           "
 				arr[$position]=1
-				break
 			done
 		fi
 	else
 		turn_flag=0
-		computer_pos=$((RANDOM % 9 + 1))
+		computer_pos=$(((RANDOM % 9) + 1))
 		if [ ${arr[$computer_pos]} -eq 0 ]
         	then
 			pos[$computer_pos]=$computer
 			board
 			val=$computer
+			win_move
 			win
 			echo "           "
 			echo "           "
 			arr[$computer_pos]=1
 		else
-			while [ ${arr[$computer_pos]} -ne 0 ]
+			while [ ${arr[$computer_pos]} -ne 0 ] 
                 	do
-				computer_pos=$((RANDOM % 9 + 1))
+				computer_pos=$(((RANDOM % 9) + 1))
+			done
 				pos[$computer_pos]=$computer
                 		board
 				val=$computer
+				win_move
 				win
-	        		echo "           "
+		       		echo "           "
 				echo "           "
 				arr[$computer_pos]=1
-				break
-			done
 		fi
 	fi
 	count=$(($count + 1))
+	if [ $count -eq 8 ]
+	then
+		exit
+	fi
 done
+
