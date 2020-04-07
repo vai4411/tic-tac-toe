@@ -1,164 +1,164 @@
 
 #!/bin/bash -x
 
-#checking flag for available positions
-turn_flag=0
-declare -a arr
-for (( flag=1 ; flag<=9 ; flag++ ))
+#checking FLAG for available POSITIONs
+TURN_FLAG=0
+declare -a ARR
+for (( FLAG=1 ; FLAG<=9 ; FLAG++ ))
 do
-	arr[$flag]=0
+	ARR[$FLAG]=0
 done
 
-declare -a pos
-for (( element=1 ; element<=9 ; element++ ))
+declare -a POS
+for (( ELEMENT=1 ; ELEMENT<=9 ; ELEMENT++ ))
 do
-	pos[$element]=$element
+	POS[$ELEMENT]=$ELEMENT
 done
 
 #Print board
-function board() {
-	echo " ${pos[1]} | ${pos[2]} | ${pos[3]}"
+function Board() {
+	echo " ${POS[1]} | ${POS[2]} | ${POS[3]}"
 	echo "-----------"
-	echo " ${pos[4]} | ${pos[5]} | ${pos[6]}"
+	echo " ${POS[4]} | ${POS[5]} | ${POS[6]}"
 	echo "-----------"
-	echo " ${pos[7]} | ${pos[8]} | ${pos[9]}"
+	echo " ${POS[7]} | ${POS[8]} | ${POS[9]}"
 }
 
 #Toss and choose letters
-function toss() {
-random=$((RANDOM % 2))
-if [ $random -eq 1 ]
+function Toss() {
+TOSS=$((TOSS % 2))
+if [ $TOSS -eq 1 ]
 then
-	echo "Player win the toss"
-	read -p "Enter letter X or O:" choice
-	if [[ "$choice" == "X" ]] 
+	echo "PLAYER win the toss"
+	read -p "Enter letter X or O:" CHOICE
+	if [[ "$CHOICE" == "X" ]] 
 	then
-		player=$choice
-		computer="O"
+		PLAYER=$CHOICE
+		COMPUTER="O"
 	else
-		player=$choice
-		computer="X"
+		PLAYER=$CHOICE
+		COMPUTER="X"
 	fi
-	read -p "Enter the choice:" position
-	pos[$position]=$player
+	read -p "Enter the CHOICE:" POSITION
+	POS[$POSITION]=$PLAYER
         board
 	echo "           "
 	echo "           "
-        arr[$position]=1
-	turn_flag=1
-	val=$player
+        ARR[$POSITION]=1
+	TURN_FLAG=1
+	VAL=$PLAYER
 else
-	echo "Computer win the toss"
-	computer_ch=$((RANDOM % 2))
-        if [ $computer_ch -eq 1 ]
+	echo "COMPUTER win the toss"
+	COMPUTER_ch=$((TOSS % 2))
+        if [ $COMPUTER_ch -eq 1 ]
 	then
-		computer="X"
-		player="O" 
+		COMPUTER="X"
+		PLAYER="O" 
 	else
-		computer="O"
-		player="X"
+		COMPUTER="O"
+		PLAYER="X"
 	fi
-	computer_pos=$(((RANDOM % 9) + 1))
-	pos[$computer_pos]=$computer
+	COMPUTER_POS=$(((TOSS % 9) + 1))
+	echo "COMPUTER choose $COMPUTER_POS"
+	POS[$COMPUTER_POS]=$COMPUTER
         board
 	echo "           "
 	echo "           "
-        arr[$computer_pos]=1
-	turn_flag=0
-	val=$computer
+        ARR[$COMPUTER_POS]=1
+	TURN_FLAG=0
+	VAL=$COMPUTER
 fi
 }
-toss
 
-#Creating winning hints for the player
-function win_move() {
-        if ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]]) ||
-	   ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]]) ||
-	   ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[1]}" != "$computer" ]])
+#Creating winning hints for the PLAYER
+function Win_move() {
+        if ([[ "${POS[2]}" == "$PLAYER" ]] && [[ "${POS[3]}" == "$PLAYER" ]] && [ ${ARR[1]} -eq 0 ]) ||
+	   ([[ "${POS[4]}" == "$PLAYER" ]] && [[ "${POS[7]}" == "$PLAYER" ]] && [ ${ARR[1]} -eq 0 ]) ||
+	   ([[ "${POS[5]}" == "$PLAYER" ]] && [[ "${POS[9]}" == "$PLAYER" ]] && [ ${ARR[1]} -eq 0 ])
         then
              echo "choose 1 for win..."
-        elif ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[2]}" != "$computer" ]]) ||
-	     ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[2]}" != "$computer" ]])
+        elif ([[ "${POS[5]}" == "$PLAYER" ]] && [[ "${POS[8]}" == "$PLAYER" ]] && [ ${ARR[2]} -eq 0 ]) ||
+	     ([[ "${POS[1]}" == "$PLAYER" ]] && [[ "${POS[3]}" == "$PLAYER" ]] && [ ${ARR[2]} -eq 0 ])
 		then
 			echo "choose 2 for win..."
-		elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[2]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]]) ||
-	             ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]]) ||
-        	     ([[ "${pos[6]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[3]}" != "$computer" ]])
+		elif ([[ "${POS[1]}" == "$PLAYER" ]] && [[ "${POS[2]}" == "$PLAYER" ]] && [ ${ARR[3]} -eq 0 ]) ||
+	             ([[ "${POS[5]}" == "$PLAYER" ]] && [[ "${POS[7]}" == "$PLAYER" ]] && [ ${ARR[3]} -eq 0 ]) ||
+        	     ([[ "${POS[6]}" == "$PLAYER" ]] && [[ "${POS[9]}" == "$PLAYER" ]] && [ ${ARR[3]} -eq 0 ])
 			then
 				echo "choose 3 for win..."
-			elif ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[4]}" != "$computer" ]]) ||
-			     ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[4]}" != "$computer" ]])
+			elif ([[ "${POS[5]}" == "$PLAYER" ]] && [[ "${POS[6]}" == "$PLAYER" ]] && [ ${ARR[4]} -eq 0 ]) ||
+			     ([[ "${POS[1]}" == "$PLAYER" ]] && [[ "${POS[7]}" == "$PLAYER" ]] && [ ${ARR[4]} -eq 0 ])
         			then
 					echo "choose 4 for win..."
-				elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
-                     		     ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
-                     		     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[7]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]]) ||
-				     ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[5]}" != "$computer" ]])
+				elif ([[ "${POS[1]}" == "$PLAYER" ]] && [[ "${POS[9]}" == "$PLAYER" ]] && [ ${ARR[5]} -eq 0 ]) ||
+                     		     ([[ "${POS[2]}" == "$PLAYER" ]] && [[ "${POS[8]}" == "$PLAYER" ]] && [ ${ARR[5]} -eq 0 ]) ||
+                     		     ([[ "${POS[3]}" == "$PLAYER" ]] && [[ "${POS[7]}" == "$PLAYER" ]] && [ ${ARR[5]} -eq 0 ]) ||
+				     ([[ "${POS[4]}" == "$PLAYER" ]] && [[ "${POS[6]}" == "$PLAYER" ]] && [ ${ARR[5]} -eq 0 ])
 					then
 						echo "choose 5 for win..."
-					elif ([[ "${pos[4]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[6]}" != "$computer" ]]) ||
-					     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[6]}" != "$computer" ]])
+					elif ([[ "${POS[4]}" == "$PLAYER" ]] && [[ "${POS[5]}" == "$PLAYER" ]] && [ ${ARR[6]} -eq 0 ]) ||
+					     ([[ "${POS[3]}" == "$PLAYER" ]] && [[ "${POS[9]}" == "$PLAYER" ]] && [ ${ARR[6]} -eq 0 ])
 						then
 							echo "choose 6 for win..."
-						elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[4]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]]) ||
-                   				     ([[ "${pos[5]}" == "$player" ]] && [[ "${pos[3]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]]) ||
-                  				     ([[ "${pos[8]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[7]}" != "$computer" ]])
+						elif ([[ "${POS[1]}" == "$PLAYER" ]] && [[ "${POS[4]}" == "$PLAYER" ]] && [ ${ARR[7]} -eq 0 ]) ||
+                   				     ([[ "${POS[5]}" == "$PLAYER" ]] && [[ "${POS[3]}" == "$PLAYER" ]] && [ ${ARR[7]} -eq 0 ]) ||
+                  				     ([[ "${POS[8]}" == "$PLAYER" ]] && [[ "${POS[9]}" == "$PLAYER" ]] && [ ${ARR[7]} -eq 0 ])
 							then
 								echo "choose 7 for win..."
-							elif ([[ "${pos[2]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[8]}" != "$computer" ]]) ||
-							     ([[ "${pos[7]}" == "$player" ]] && [[ "${pos[9]}" == "$player" ]] && [[ "${pos[8]}" != "$computer" ]])
+							elif ([[ "${POS[2]}" == "$PLAYER" ]] && [[ "${POS[5]}" == "$PLAYER" ]] && [ ${ARR[8]} -eq 0 ]) ||
+							     ([[ "${POS[7]}" == "$PLAYER" ]] && [[ "${POS[9]}" == "$PLAYER" ]] && [ ${ARR[8]} -eq 0 ])
 								then
 									echo "choose 8 for win..."
-								elif ([[ "${pos[1]}" == "$player" ]] && [[ "${pos[5]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]]) ||
-                                                    		     ([[ "${pos[7]}" == "$player" ]] && [[ "${pos[8]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]]) ||
-                                                 		     ([[ "${pos[3]}" == "$player" ]] && [[ "${pos[6]}" == "$player" ]] && [[ "${pos[9]}" != "$computer" ]])
+								elif ([[ "${POS[1]}" == "$PLAYER" ]] && [[ "${POS[5]}" == "$PLAYER" ]] && [ ${ARR[9]} -eq 0 ]) ||
+                                                    		     ([[ "${POS[7]}" == "$PLAYER" ]] && [[ "${POS[8]}" == "$PLAYER" ]] && [ ${ARR[9]} -eq 0 ]) ||
+                                                 		     ([[ "${POS[3]}" == "$PLAYER" ]] && [[ "${POS[6]}" == "$PLAYER" ]] && [ ${ARR[9]} -eq 0 ])
 									then
 										echo "choose 9 for win..."
 	fi
 }
 
-#Creating blocking computer winning hints for the player
-function win_block() {
-        if ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]]) ||
-	   ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]]) ||
-	   ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[1]}" != "$player" ]])
+#Creating blocking COMPUTER winning hints for the PLAYER
+function Win_block() {
+        if ([[ "${POS[2]}" == "$COMPUTER" ]] && [[ "${POS[3]}" == "$COMPUTER" ]] && [ ${ARR[1]} -eq 0 ]) ||
+	   ([[ "${POS[4]}" == "$COMPUTER" ]] && [[ "${POS[7]}" == "$COMPUTER" ]] && [ ${ARR[1]} -eq 0 ]) ||
+	   ([[ "${POS[5]}" == "$COMPUTER" ]] && [[ "${POS[9]}" == "$COMPUTER" ]] && [ ${ARR[1]} -eq 0 ])
         then
              echo "choose 1 for block..."
-        elif ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[2]}" != "$player" ]]) ||
-	     ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[2]}" != "$player" ]])
+        elif ([[ "${POS[5]}" == "$COMPUTER" ]] && [[ "${POS[8]}" == "$COMPUTER" ]] && [ ${ARR[2]} -eq 0 ]) ||
+	     ([[ "${POS[1]}" == "$COMPUTER" ]] && [[ "${POS[3]}" == "$COMPUTER" ]] && [ ${ARR[2]} -eq 0 ])
 		then
 			echo "choose 2 for block..."
-		elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[2]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]]) ||
-	             ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]]) ||
-        	     ([[ "${pos[6]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[3]}" != "$player" ]])
+		elif ([[ "${POS[1]}" == "$COMPUTER" ]] && [[ "${POS[2]}" == "$COMPUTER" ]] && [ ${ARR[3]} -eq 0 ]) ||
+	             ([[ "${POS[5]}" == "$COMPUTER" ]] && [[ "${POS[7]}" == "$COMPUTER" ]] && [ ${ARR[3]} -eq 0 ]) ||
+        	     ([[ "${POS[6]}" == "$COMPUTER" ]] && [[ "${POS[9]}" == "$COMPUTER" ]] && [ ${ARR[3]} -eq 0 ])
 			then
 				echo "choose 3 for block..."
-			elif ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[4]}" != "$player" ]]) ||
-			     ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[4]}" != "$player" ]])
+			elif ([[ "${POS[5]}" == "$COMPUTER" ]] && [[ "${POS[6]}" == "$COMPUTER" ]] && [ ${ARR[4]} -eq 0 ]) ||
+			     ([[ "${POS[1]}" == "$COMPUTER" ]] && [[ "${POS[7]}" == "$COMPUTER" ]] && [ ${ARR[4]} -eq 0 ])
         			then
 					echo "choose 4 for block..."
-				elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
-                     		     ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
-                     		     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[7]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]]) ||
-				     ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[5]}" != "$player" ]])
+				elif ([[ "${POS[1]}" == "$COMPUTER" ]] && [[ "${POS[9]}" == "$COMPUTER" ]] && [ ${ARR[5]} -eq 0 ]) ||
+                     		     ([[ "${POS[2]}" == "$COMPUTER" ]] && [[ "${POS[8]}" == "$COMPUTER" ]] && [ ${ARR[5]} -eq 0 ]) ||
+                     		     ([[ "${POS[3]}" == "$COMPUTER" ]] && [[ "${POS[7]}" == "$COMPUTER" ]] && [ ${ARR[5]} -eq 0 ]) ||
+				     ([[ "${POS[4]}" == "$COMPUTER" ]] && [[ "${POS[6]}" == "$COMPUTER" ]] && [ ${ARR[5]} -eq 0 ])
 					then
 						echo "choose 5 for block..."
-					elif ([[ "${pos[4]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[6]}" != "$player" ]]) ||
-					     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[6]}" != "$player" ]])
+					elif ([[ "${POS[4]}" == "$COMPUTER" ]] && [[ "${POS[5]}" == "$COMPUTER" ]] && [ ${ARR[6]} -eq 0 ]) ||
+					     ([[ "${POS[3]}" == "$COMPUTER" ]] && [[ "${POS[9]}" == "$COMPUTER" ]] && [ ${ARR[6]} -eq 0 ])
 						then
 							echo "choose 6 for block..."
-						elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[4]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]]) ||
-                   				     ([[ "${pos[5]}" == "$computer" ]] && [[ "${pos[3]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]]) ||
-                  				     ([[ "${pos[8]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[7]}" != "$player" ]])
+						elif ([[ "${POS[1]}" == "$COMPUTER" ]] && [[ "${POS[4]}" == "$COMPUTER" ]] && [ ${ARR[7]} -eq 0 ]) ||
+                   				     ([[ "${POS[5]}" == "$COMPUTER" ]] && [[ "${POS[3]}" == "$COMPUTER" ]] && [ ${ARR[7]} -eq 0 ]) ||
+                  				     ([[ "${POS[8]}" == "$COMPUTER" ]] && [[ "${POS[9]}" == "$COMPUTER" ]] && [ ${ARR[7]} -eq 0 ])
 							then
 								echo "choose 7 for block..."
-							elif ([[ "${pos[2]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[8]}" != "$player" ]]) ||
-							     ([[ "${pos[7]}" == "$computer" ]] && [[ "${pos[9]}" == "$computer" ]] && [[ "${pos[8]}" != "$player" ]])
+							elif ([[ "${POS[2]}" == "$COMPUTER" ]] && [[ "${POS[5]}" == "$COMPUTER" ]] && [ ${ARR[8]} -eq 0 ]) ||
+							     ([[ "${POS[7]}" == "$COMPUTER" ]] && [[ "${POS[9]}" == "$COMPUTER" ]] && [ ${ARR[8]} -eq 0 ])
 								then
 									echo "choose 8 for block..."
-								elif ([[ "${pos[1]}" == "$computer" ]] && [[ "${pos[5]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]]) ||
-                                                    		     ([[ "${pos[7]}" == "$computer" ]] && [[ "${pos[8]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]]) ||
-                                                 		     ([[ "${pos[3]}" == "$computer" ]] && [[ "${pos[6]}" == "$computer" ]] && [[ "${pos[9]}" != "$player" ]])
+								elif ([[ "${POS[1]}" == "$COMPUTER" ]] && [[ "${POS[5]}" == "$COMPUTER" ]] && [ ${ARR[9]} -eq 0 ]) ||
+                                                   		     ([[ "${POS[7]}" == "$COMPUTER" ]] && [[ "${POS[8]}" == "$COMPUTER" ]] && [ ${ARR[9]} -eq 0 ]) ||
+                                                 		     ([[ "${POS[3]}" == "$COMPUTER" ]] && [[ "${POS[6]}" == "$COMPUTER" ]] && [ ${ARR[9]} -eq 0 ])
 									then
 										echo "choose 9 for block..."
 	fi
@@ -166,116 +166,132 @@ function win_block() {
 
 
 #Wining Conditions
-function win() {
-	if ([[ "${pos[1]}" == "$val" ]] && [[ "${pos[2]}" == "$val" ]] && [[ "${pos[3]}" == "$val" ]]) ||
-	   ([[ "${pos[4]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[6]}" == "$val" ]]) ||
-	   ([[ "${pos[7]}" == "$val" ]] && [[ "${pos[8]}" == "$val" ]] && [[ "${pos[9]}" == "$val" ]]) ||
-	   ([[ "${pos[1]}" == "$val" ]] && [[ "${pos[4]}" == "$val" ]] && [[ "${pos[7]}" == "$val" ]]) ||
-	   ([[ "${pos[2]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[8]}" == "$val" ]]) ||
-	   ([[ "${pos[3]}" == "$val" ]] && [[ "${pos[6]}" == "$val" ]] && [[ "${pos[9]}" == "$val" ]]) ||
-	   ([[ "${pos[1]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[9]}" == "$val" ]]) ||
-	   ([[ "${pos[3]}" == "$val" ]] && [[ "${pos[5]}" == "$val" ]] && [[ "${pos[7]}" == "$val" ]]) 
+function Win() {
+	if ([[ "${POS[1]}" == "$VAL" ]] && [[ "${POS[2]}" == "$VAL" ]] && [[ "${POS[3]}" == "$VAL" ]]) ||
+	   ([[ "${POS[4]}" == "$VAL" ]] && [[ "${POS[5]}" == "$VAL" ]] && [[ "${POS[6]}" == "$VAL" ]]) ||
+	   ([[ "${POS[7]}" == "$VAL" ]] && [[ "${POS[8]}" == "$VAL" ]] && [[ "${POS[9]}" == "$VAL" ]]) ||
+	   ([[ "${POS[1]}" == "$VAL" ]] && [[ "${POS[4]}" == "$VAL" ]] && [[ "${POS[7]}" == "$VAL" ]]) ||
+	   ([[ "${POS[2]}" == "$VAL" ]] && [[ "${POS[5]}" == "$VAL" ]] && [[ "${POS[8]}" == "$VAL" ]]) ||
+	   ([[ "${POS[3]}" == "$VAL" ]] && [[ "${POS[6]}" == "$VAL" ]] && [[ "${POS[9]}" == "$VAL" ]]) ||
+	   ([[ "${POS[1]}" == "$VAL" ]] && [[ "${POS[5]}" == "$VAL" ]] && [[ "${POS[9]}" == "$VAL" ]]) ||
+	   ([[ "${POS[3]}" == "$VAL" ]] && [[ "${POS[5]}" == "$VAL" ]] && [[ "${POS[7]}" == "$VAL" ]]) 
 	then
-		if [[ "$val" == "$player" ]]
+		if [[ "$VAL" == "$PLAYER" ]]
 		then
-			echo "Player wins..."
+			echo "PLAYER wins..."
 			exit
 		else
-			echo "Computer wins..."
+			echo "COMPUTER wins..."
 			exit
 		fi
 	fi
 }
 
 #Play function
-count=0
-while [ $count -lt 9 ]
+Toss
+COUNT=0
+while [ $COUNT -lt 9 ]
 do
-	if [ $turn_flag -eq 0 ]
+	if [ $TURN_FLAG -eq 0 ]
 	then
-		turn_flag=1
-		read -p "Enter the choice:" position
-		if [ ${arr[$position]} -eq 0 ]
+		TURN_FLAG=1
+		read -p "Enter the CHOICE:" POSITION
+		if [ ${ARR[$POSITION]} -eq 0 ]
 		then
-			pos[$position]=$player
-			board
-			val=$player
-			win_block
-			win_move
-			win
+			POS[$POSITION]=$PLAYER
+			VAL=$PLAYER
+			Win_move
+			Win_block
+			Board
+			Win
 			echo "           "
 			echo "           "
-                	arr[$position]=1
+                	ARR[$POSITION]=1
 		else
-			while [ ${arr[$position]} -ne 0 ]
+			while [ ${ARR[$POSITION]} -ne 0 ]
 			do
-				read -p "Enter the choice:" position
-				pos[$position]=$player
-				board
-				val=$player
-				win_block
-				win_move
-				win
+				read -p "Enter the CHOICE:" POSITION
+				POS[$POSITION]=$PLAYER
+				VAL=$PLAYER
+				Win_move
+				Win_block
+				Board
+				Win
 				echo "           "
 				echo "           "
-				arr[$position]=1
+				ARR[$POSITION]=1
 			done
 		fi
 	else
-		turn_flag=0
-		computer_pos=$(((RANDOM % 9) + 1))
-		if [ ${arr[$computer_pos]} -eq 0 ]
+		TURN_FLAG=0
+		COMPUTER_POS=$(((TOSS % 9) + 1))
+		if [ ${ARR[$COMPUTER_POS]} -eq 0 ]
         	then
-			pos[$computer_pos]=$computer
-			board
-			val=$computer
-			win_block
-			win_move
-			win
+			echo "COMPUTER choose $COMPUTER_POS"
+			POS[$COMPUTER_POS]=$COMPUTER
+			VAL=$COMPUTER
+			Win_move
+			Win_block
+			Board
+			Win
 			echo "           "
 			echo "           "
-			arr[$computer_pos]=1
+			ARR[$COMPUTER_POS]=1
 		else
-			while [ ${arr[$computer_pos]} -ne 0 ] 
+			while [ ${ARR[$COMPUTER_POS]} -ne 0 ] 
                 	do
-				computer_pos=$(((RANDOM % 9) + 1))
+				COMPUTER_POS=$(((TOSS % 9) + 1))
 			done
-				pos[$computer_pos]=$computer
-                		board
-				val=$computer
-				win_block
-				win_move
-				win
+				echo "COMPUTER choose $COMPUTER_POS"
+				POS[$COMPUTER_POS]=$COMPUTER
+				VAL=$COMPUTER
+				Win_move
+				Win_block
+				Board
+				Win
 		       		echo "           "
 				echo "           "
-				arr[$computer_pos]=1
+				ARR[$COMPUTER_POS]=1
 		fi
 	fi
-	count=$(($count + 1))
 #Available corners
-	if [ $count -gt 5 ]
+	if [ $COUNT -gt 5 ]
 	then
-		if [ ${arr[1]} -eq 0 ]
+		if [ ${ARR[1]} -eq 0 ]
 		then
 			echo "Corner 1 avaiable"
-		elif [ ${arr[3]} -eq 0 ]
+		elif [ ${ARR[3]} -eq 0 ]
 			then
 				echo "Corner 3 avaiable"
-			elif [ ${arr[7]} -eq 0 ]
+			elif [ ${ARR[7]} -eq 0 ]
 				then
 					echo "Corner 7 avaiable"
-				elif [ ${arr[9]} -eq 0 ]
+				elif [ ${ARR[9]} -eq 0 ]
 					then
-						echo "Cormer 9 avaiable"
+						echo "Corner 9 avaiable"
 #Checking center available or not
-					elif [ ${arr[5]} -eq 0 ]
+					elif [ ${ARR[5]} -eq 0 ]
 						then
 							echo "Center 5 avaiable"
-						fi
+#Checking side available or not
+						elif [ ${ARR[2]} -eq 0 ]
+							then
+								echo "Side 2 available"
+							elif [ ${ARR[4]} -eq 0 ]
+								then
+									echo "Side 4 available"
+								elif [ ${ARR[6]} -eq 0 ]
+									then
+										echo "Side 6 available"
+									elif [ ${ARR[8]} -eq 0 ]
+										then
+											echo "Side 8 available"
+										fi
 		fi
-	if [ $count -eq 8 ]
+	COUNT=$(($COUNT + 1))
+	if [ $COUNT -eq 8 ]
 	then
-		echo "Draw..."
+		echo "Draw... No more blocks left"
 		exit
 	fi
 done
